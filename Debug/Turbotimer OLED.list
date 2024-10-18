@@ -4656,14 +4656,9 @@ int main(void)
  8002932:	f001 faab 	bl	8003e8c <ssd1306_WriteString>
 			break;
  8002936:	e036      	b.n	80029a6 <main+0xc8e>
-			//			ssd1306_WriteString("DJD CUSTOM", Font_11x18, White);
-			//			ssd1306_SetCursor(8, 25);
-			//			ssd1306_WriteString("Software ver 3.1", Font_7x10, White);
-			//			ssd1306_SetCursor(10, 50);
-			//			ssd1306_WriteString("INITIALIZATION", Font_7x10, White);
+		case 8:
 			ssd1306_startLogo();
  8002938:	f001 fc22 	bl	8004180 <ssd1306_startLogo>
-			//			ssd1306_TestDrawBitmap();
 			break;
  800293c:	e033      	b.n	80029a6 <main+0xc8e>
 			break;

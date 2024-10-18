@@ -839,14 +839,7 @@ int main(void)
 			ssd1306_WriteString("V", Font_7x10, White);
 			break;
 		case 8:
-			//			ssd1306_SetCursor(10, 0);
-			//			ssd1306_WriteString("DJD CUSTOM", Font_11x18, White);
-			//			ssd1306_SetCursor(8, 25);
-			//			ssd1306_WriteString("Software ver 3.1", Font_7x10, White);
-			//			ssd1306_SetCursor(10, 50);
-			//			ssd1306_WriteString("INITIALIZATION", Font_7x10, White);
 			ssd1306_startLogo();
-			//			ssd1306_TestDrawBitmap();
 			break;
 
 		}
