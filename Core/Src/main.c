@@ -1090,6 +1090,17 @@ int main(void) {
 		}
 
 		if (volt >= voltSet) {
+			if (voltageSetLock == 0 && charge == 0) {
+				if (display == 0) {
+					ssd1306_Fill(Black);
+					screen = 8;
+					ssd1306_SetDisplayOn(1);
+					prevmilisBckl = milis;
+				}
+				if (screen == 7) {
+					screen = 0;
+				}
+			}
 			if (screen == 0) {
 				ssd1306_Fill(Black);
 				if (reczny == 0 && turbotimerOn == 0) {
@@ -1194,6 +1205,7 @@ int main(void) {
 					prevmilisBckl = milis;
 					screen = 8;
 				}
+
 			}
 
 			////////////////////////////Obsługa kierunkowskazów//////////////////////////////////////
@@ -1215,17 +1227,7 @@ int main(void) {
 			}
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		if (volt > voltSet && voltageSetLock == 0 && charge == 0) {
-			if (display == 0) {
-				ssd1306_Fill(Black);
-				screen = 8;
-				ssd1306_SetDisplayOn(1);
-				prevmilisBckl = milis;
-			}
-			if (screen == 7) {
-				screen = 0;
-			}
-		}
+
 	}
 	/* USER CODE END WHILE */
 
