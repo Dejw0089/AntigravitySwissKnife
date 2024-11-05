@@ -1088,74 +1088,72 @@ int main(void) {
 		if (screen != 8) {
 			prevmilis2 = milis;
 		}
-		if (display == 0 && volt < voltSet) {
-			ssd1306_Fill(Black);
-			prevmilisBckl = milis;
-			screen = 8;
-		}
-		if (screen == 0 && volt >= voltSet) {
-			ssd1306_Fill(Black);
-			if (reczny == 0 && turbotimerOn == 0) {
-				//				ssd1306_SetDisplayOn(1);
-				HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
-				//				turbotimerLock = 0;
-				screen = 5;
-			}
-			if (reczny == 1 && turbotimerLock == 1) {
-				HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
-				turbotimerLock = 0;
-			}
-			if (reczny == 1 && turbotimerOn == 0) {
-				HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
-				turbotimerLock = 0;
-			}
-			if (reczny == 0 && turbotimerLock == 0) {
-				HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOB, GthRelay_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOB, GthLamp1_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_SET);
-			}
-		}
-		if (screen == 5 && volt >= voltSet) {
-			if (reczny == 0) {
-				ssd1306_SetDisplayOn(1);
-				if (trigger < 10) {
-					//					screen = 5;
-					trigger++;
+
+		if (volt >= voltSet) {
+			if (screen == 0) {
+				ssd1306_Fill(Black);
+				if (reczny == 0 && turbotimerOn == 0) {
+					//				ssd1306_SetDisplayOn(1);
+					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
+					//				turbotimerLock = 0;
+					screen = 5;
 				}
-				if (trigger == 10) {
+				if (reczny == 1 && turbotimerLock == 1) {
+					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
+					turbotimerLock = 0;
+				}
+				if (reczny == 1 && turbotimerOn == 0) {
+					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
+					turbotimerLock = 0;
+				}
+				if (reczny == 0 && turbotimerLock == 0) {
+					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOB, GthRelay_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOB, GthLamp1_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_SET);
+				}
+			}
+			if (screen == 5) {
+				if (reczny == 0) {
+					ssd1306_SetDisplayOn(1);
+					if (trigger < 10) {
+						//					screen = 5;
+						trigger++;
+					}
+					if (trigger == 10) {
+						screen = 0;
+						turbotimerOn = 1;
+					}
+				}
+				if (reczny == 1) {
+					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
 					screen = 0;
-					turbotimerOn = 1;
 				}
 			}
 			if (reczny == 1) {
-				HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
-				screen = 0;
-			}
-		}
-		if (reczny == 1) {
 //			HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_RESET);
-			turbotimerOn = 0;
-			trigger = 0;
-			sek = sekSet;
-			min = minSet;
-		}
-		if (volt > voltSet && charge == 0 && turbotimerOn == 0) {
-			HAL_GPIO_WritePin(GPIOB, GthRelay_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, GthLamp1_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_RESET);
-			gthLock = 0;
-			sekGth = sekSetGth;
-			minGth = minSetGth;
-			carLocked = 0;
-			carUnLocked = 0;
-		}
-		if (volt > voltSet && charge == 1) {
-			gthLock = 1;
-			sekGth = 0;
-			minGth = 0;
+				turbotimerOn = 0;
+				trigger = 0;
+				sek = sekSet;
+				min = minSet;
+			}
+			if (charge == 0 && turbotimerOn == 0) {
+				HAL_GPIO_WritePin(GPIOB, GthRelay_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB, GthLamp1_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_RESET);
+				gthLock = 0;
+				sekGth = sekSetGth;
+				minGth = minSetGth;
+				carLocked = 0;
+				carUnLocked = 0;
+			}
+			if (charge == 1) {
+				gthLock = 1;
+				sekGth = 0;
+				minGth = 0;
+			}
 		}
 		if (volt < 11.0) {
 			gthLock = 1;
@@ -1164,30 +1162,37 @@ int main(void) {
 			HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_SET);
 		}
-		if (volt < voltSet && voltageSetLock == 0) {
-			if (turbotimerOn == 1) {
-				ssd1306_SetDisplayOn(1);
-			}
-			if (gthLock == 0 && screen != 8) {
-				screen = 7;
-			}
-			if (screen == 0 && gthLock == 1) {
-				if (milis - prevmilisBckl >= (sleep * 10)) {
-					if (charge == 0 && turbotimerOn == 0) {
-						ssd1306_SetDisplayOn(0);
-					}
-					prevmilisBckl = milis;
+		if (volt < voltSet) {
+			if (voltageSetLock == 0) {
+				if (turbotimerOn == 1) {
+					ssd1306_SetDisplayOn(1);
 				}
-			}
-			if (screen == 7 && gthLock == 1) {
-				if (milis - prevmilisBckl >= (sleep * 10)) {
-					if (charge == 0 && turbotimerOn == 0) {
-						ssd1306_SetDisplayOn(0);
+				if (gthLock == 0 && screen != 8) {
+					screen = 7;
+				}
+				if (screen == 0 && gthLock == 1) {
+					if (milis - prevmilisBckl >= (sleep * 10)) {
+						if (charge == 0 && turbotimerOn == 0) {
+							ssd1306_SetDisplayOn(0);
+						}
+						prevmilisBckl = milis;
 					}
-					if (charge == 0 && turbotimerOn == 1) {
-						ssd1306_SetDisplayOn(0);
+				}
+				if (screen == 7 && gthLock == 1) {
+					if (milis - prevmilisBckl >= (sleep * 10)) {
+						if (charge == 0 && turbotimerOn == 0) {
+							ssd1306_SetDisplayOn(0);
+						}
+						if (charge == 0 && turbotimerOn == 1) {
+							ssd1306_SetDisplayOn(0);
+						}
+						prevmilisBckl = milis;
 					}
+				}
+				if (display == 0) {
+					ssd1306_Fill(Black);
 					prevmilisBckl = milis;
+					screen = 8;
 				}
 			}
 
@@ -1489,8 +1494,8 @@ static void MX_GPIO_Init(void) {
 
 	/*Configure GPIO pin Output Level */
 	HAL_GPIO_WritePin(GPIOB,
-			GthLamp2_Pin | ttRelay_Pin | GthRelay_Pin | GthLicznik_Pin
-					| GthLamp1_Pin, GPIO_PIN_SET);
+	GthLamp2_Pin | ttRelay_Pin | GthRelay_Pin | GthLicznik_Pin | GthLamp1_Pin,
+			GPIO_PIN_SET);
 
 	/*Configure GPIO pins : B1_Pin OK_Pin */
 	GPIO_InitStruct.Pin = B1_Pin | OK_Pin;
