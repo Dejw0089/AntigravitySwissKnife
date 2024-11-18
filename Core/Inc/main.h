@@ -69,6 +69,8 @@ void Error_Handler(void);
 #define open_GPIO_Port GPIOB
 #define Sport_Pin GPIO_PIN_15
 #define Sport_GPIO_Port GPIOB
+#define ignition_Pin GPIO_PIN_8
+#define ignition_GPIO_Port GPIOA
 #define GthLamp2_Pin GPIO_PIN_3
 #define GthLamp2_GPIO_Port GPIOB
 #define ttRelay_Pin GPIO_PIN_4
