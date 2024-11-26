@@ -548,10 +548,10 @@ int main(void) {
 			voltmilis = milis;
 		}
 		/////////////konwersja liczby na char //////////////////////////////
-		snprintf(voltage, 5, "%f", volt);
+		snprintf(voltage, 5, "%.2f", volt);
 		printf("%s", voltage);
 
-		snprintf(voltageSet, 5, "%f", voltSet);
+		snprintf(voltageSet, 5, "%.2f", voltSet);
 		printf("%s", voltageSet);
 
 		snprintf(contrastLcd, 4, "%d", contrast);

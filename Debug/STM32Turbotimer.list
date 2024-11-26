@@ -7,23 +7,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         0000b904  080001a0  080001a0  000011a0  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000023e8  0800baa8  0800baa8  0000caa8  2**3
+  2 .rodata       000023f0  0800baa8  0800baa8  0000caa8  2**3
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0800de90  0800de90  0000f210  2**0
+  3 .ARM.extab    00000000  0800de98  0800de98  0000f210  2**0
                   CONTENTS
-  4 .ARM          00000008  0800de90  0800de90  0000ee90  2**2
+  4 .ARM          00000008  0800de98  0800de98  0000ee98  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  0800de98  0800de98  0000f210  2**0
+  5 .preinit_array 00000000  0800dea0  0800dea0  0000f210  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  0800de98  0800de98  0000ee98  2**2
+  6 .init_array   00000004  0800dea0  0800dea0  0000eea0  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  0800de9c  0800de9c  0000ee9c  2**2
+  7 .fini_array   00000004  0800dea4  0800dea4  0000eea4  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000210  20000000  0800dea0  0000f000  2**2
+  8 .data         00000210  20000000  0800dea8  0000f000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000790  20000210  0800e0b0  0000f210  2**2
+  9 .bss          00000790  20000210  0800e0b8  0000f210  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  200009a0  0800e0b0  0000f9a0  2**0
+ 10 ._user_heap_stack 00000600  200009a0  0800e0b8  0000f9a0  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0000f210  2**0
                   CONTENTS, READONLY
@@ -3260,7 +3260,7 @@ int main(void) {
  8001df8:	6013      	str	r3, [r2, #0]
 		}
 		/////////////konwersja liczby na char //////////////////////////////
-		snprintf(voltage, 5, "%f", volt);
+		snprintf(voltage, 5, "%.2f", volt);
  8001dfa:	4b67      	ldr	r3, [pc, #412]	@ (8001f98 <main+0x280>)
  8001dfc:	681b      	ldr	r3, [r3, #0]
  8001dfe:	4618      	mov	r0, r3
@@ -3277,7 +3277,7 @@ int main(void) {
  8001e18:	4862      	ldr	r0, [pc, #392]	@ (8001fa4 <main+0x28c>)
  8001e1a:	f006 f9b5 	bl	8008188 <iprintf>
 
-		snprintf(voltageSet, 5, "%f", voltSet);
+		snprintf(voltageSet, 5, "%.2f", voltSet);
  8001e1e:	4b62      	ldr	r3, [pc, #392]	@ (8001fa8 <main+0x290>)
  8001e20:	681b      	ldr	r3, [r3, #0]
  8001e22:	4618      	mov	r0, r3
@@ -3447,10 +3447,10 @@ int main(void) {
  8001f98:	20000368 	.word	0x20000368
  8001f9c:	0800baa8 	.word	0x0800baa8
  8001fa0:	2000038c 	.word	0x2000038c
- 8001fa4:	0800baac 	.word	0x0800baac
+ 8001fa4:	0800bab0 	.word	0x0800bab0
  8001fa8:	20000004 	.word	0x20000004
  8001fac:	20000394 	.word	0x20000394
- 8001fb0:	0800bab0 	.word	0x0800bab0
+ 8001fb0:	0800bab4 	.word	0x0800bab4
  8001fb4:	2000039c 	.word	0x2000039c
  8001fb8:	20000020 	.word	0x20000020
  8001fbc:	200003a0 	.word	0x200003a0
@@ -3726,28 +3726,28 @@ int main(void) {
 			break;
  80021de:	e3ae      	b.n	800293e <main+0xc26>
  80021e0:	2000002c 	.word	0x2000002c
- 80021e4:	0800bab4 	.word	0x0800bab4
- 80021e8:	0800bac0 	.word	0x0800bac0
- 80021ec:	0800bac4 	.word	0x0800bac4
+ 80021e4:	0800bab8 	.word	0x0800bab8
+ 80021e8:	0800bac4 	.word	0x0800bac4
+ 80021ec:	0800bac8 	.word	0x0800bac8
  80021f0:	20000034 	.word	0x20000034
- 80021f4:	0800bac8 	.word	0x0800bac8
+ 80021f4:	0800bacc 	.word	0x0800bacc
  80021f8:	20000008 	.word	0x20000008
  80021fc:	200003a4 	.word	0x200003a4
- 8002200:	0800bacc 	.word	0x0800bacc
+ 8002200:	0800bad0 	.word	0x0800bad0
  8002204:	2000000a 	.word	0x2000000a
  8002208:	200003a8 	.word	0x200003a8
- 800220c:	0800bad0 	.word	0x0800bad0
+ 800220c:	0800bad4 	.word	0x0800bad4
  8002210:	2000038c 	.word	0x2000038c
- 8002214:	0800badc 	.word	0x0800badc
+ 8002214:	0800bae0 	.word	0x0800bae0
  8002218:	20000024 	.word	0x20000024
- 800221c:	0800bae0 	.word	0x0800bae0
- 8002220:	0800bae8 	.word	0x0800bae8
- 8002224:	0800baf4 	.word	0x0800baf4
- 8002228:	0800bb00 	.word	0x0800bb00
- 800222c:	0800bb08 	.word	0x0800bb08
+ 800221c:	0800bae4 	.word	0x0800bae4
+ 8002220:	0800baec 	.word	0x0800baec
+ 8002224:	0800baf8 	.word	0x0800baf8
+ 8002228:	0800bb04 	.word	0x0800bb04
+ 800222c:	0800bb0c 	.word	0x0800bb0c
  8002230:	20000408 	.word	0x20000408
- 8002234:	0800bb10 	.word	0x0800bb10
- 8002238:	0800bb18 	.word	0x0800bb18
+ 8002234:	0800bb14 	.word	0x0800bb14
+ 8002238:	0800bb1c 	.word	0x0800bb1c
 		case 2:
 			ssd1306_SetCursor(55, 54);
  800223c:	2136      	movs	r1, #54	@ 0x36
@@ -4035,16 +4035,16 @@ int main(void) {
  8002454:	e275      	b.n	8002942 <main+0xc2a>
  8002456:	bf00      	nop
  8002458:	20000024 	.word	0x20000024
- 800245c:	0800bb1c 	.word	0x0800bb1c
+ 800245c:	0800bb20 	.word	0x0800bb20
  8002460:	2000002c 	.word	0x2000002c
- 8002464:	0800bb20 	.word	0x0800bb20
- 8002468:	0800bac0 	.word	0x0800bac0
- 800246c:	0800bac4 	.word	0x0800bac4
+ 8002464:	0800bb24 	.word	0x0800bb24
+ 8002468:	0800bac4 	.word	0x0800bac4
+ 800246c:	0800bac8 	.word	0x0800bac8
  8002470:	20000034 	.word	0x20000034
- 8002474:	0800bac8 	.word	0x0800bac8
+ 8002474:	0800bacc 	.word	0x0800bacc
  8002478:	2000000e 	.word	0x2000000e
  800247c:	200003b4 	.word	0x200003b4
- 8002480:	0800bacc 	.word	0x0800bacc
+ 8002480:	0800bad0 	.word	0x0800bad0
  8002484:	2000000f 	.word	0x2000000f
  8002488:	200003b8 	.word	0x200003b8
  800248c:	20000388 	.word	0x20000388
@@ -4393,26 +4393,26 @@ int main(void) {
  8002718:	e145      	b.n	80029a6 <main+0xc8e>
  800271a:	bf00      	nop
  800271c:	20000024 	.word	0x20000024
- 8002720:	0800bb1c 	.word	0x0800bb1c
+ 8002720:	0800bb20 	.word	0x0800bb20
  8002724:	2000002c 	.word	0x2000002c
- 8002728:	0800bb30 	.word	0x0800bb30
- 800272c:	0800bac0 	.word	0x0800bac0
- 8002730:	0800bac4 	.word	0x0800bac4
+ 8002728:	0800bb34 	.word	0x0800bb34
+ 800272c:	0800bac4 	.word	0x0800bac4
+ 8002730:	0800bac8 	.word	0x0800bac8
  8002734:	20000034 	.word	0x20000034
- 8002738:	0800bac8 	.word	0x0800bac8
+ 8002738:	0800bacc 	.word	0x0800bacc
  800273c:	20000010 	.word	0x20000010
  8002740:	200003bc 	.word	0x200003bc
- 8002744:	0800bacc 	.word	0x0800bacc
+ 8002744:	0800bad0 	.word	0x0800bad0
  8002748:	20000404 	.word	0x20000404
  800274c:	200003c0 	.word	0x200003c0
  8002750:	20000388 	.word	0x20000388
  8002754:	20000400 	.word	0x20000400
  8002758:	20000402 	.word	0x20000402
- 800275c:	0800bb40 	.word	0x0800bb40
- 8002760:	0800bad0 	.word	0x0800bad0
+ 800275c:	0800bb44 	.word	0x0800bb44
+ 8002760:	0800bad4 	.word	0x0800bad4
  8002764:	2000038c 	.word	0x2000038c
- 8002768:	0800badc 	.word	0x0800badc
- 800276c:	0800bb4c 	.word	0x0800bb4c
+ 8002768:	0800bae0 	.word	0x0800bae0
+ 800276c:	0800bb50 	.word	0x0800bb50
 		case 6:
 			ssd1306_SetCursor(15, 0);
  8002770:	2100      	movs	r1, #0
@@ -4668,28 +4668,28 @@ int main(void) {
  8002944:	e02f      	b.n	80029a6 <main+0xc8e>
  8002946:	bf00      	nop
  8002948:	20000024 	.word	0x20000024
- 800294c:	0800bb58 	.word	0x0800bb58
- 8002950:	0800bb68 	.word	0x0800bb68
+ 800294c:	0800bb5c 	.word	0x0800bb5c
+ 8002950:	0800bb6c 	.word	0x0800bb6c
  8002954:	2000039c 	.word	0x2000039c
- 8002958:	0800bb74 	.word	0x0800bb74
+ 8002958:	0800bb78 	.word	0x0800bb78
  800295c:	20000394 	.word	0x20000394
- 8002960:	0800bb84 	.word	0x0800bb84
+ 8002960:	0800bb88 	.word	0x0800bb88
  8002964:	200003a0 	.word	0x200003a0
- 8002968:	0800bb08 	.word	0x0800bb08
+ 8002968:	0800bb0c 	.word	0x0800bb0c
  800296c:	2000002c 	.word	0x2000002c
- 8002970:	0800bae8 	.word	0x0800bae8
- 8002974:	0800bac0 	.word	0x0800bac0
- 8002978:	0800bac4 	.word	0x0800bac4
+ 8002970:	0800baec 	.word	0x0800baec
+ 8002974:	0800bac4 	.word	0x0800bac4
+ 8002978:	0800bac8 	.word	0x0800bac8
  800297c:	20000034 	.word	0x20000034
- 8002980:	0800bac8 	.word	0x0800bac8
+ 8002980:	0800bacc 	.word	0x0800bacc
  8002984:	2000000c 	.word	0x2000000c
  8002988:	200003ac 	.word	0x200003ac
- 800298c:	0800bacc 	.word	0x0800bacc
+ 800298c:	0800bad0 	.word	0x0800bad0
  8002990:	200003fc 	.word	0x200003fc
  8002994:	200003b0 	.word	0x200003b0
- 8002998:	0800bad0 	.word	0x0800bad0
+ 8002998:	0800bad4 	.word	0x0800bad4
  800299c:	2000038c 	.word	0x2000038c
- 80029a0:	0800badc 	.word	0x0800badc
+ 80029a0:	0800bae0 	.word	0x0800bae0
 			break;
  80029a4:	bf00      	nop
 
@@ -8420,7 +8420,7 @@ void ssd1306_startLogo() {
  80041ce:	46bd      	mov	sp, r7
  80041d0:	bd80      	pop	{r7, pc}
  80041d2:	bf00      	nop
- 80041d4:	0800d64c 	.word	0x0800d64c
+ 80041d4:	0800d650 	.word	0x0800d650
 
 080041d8 <HAL_MspInit>:
 /* USER CODE END 0 */
@@ -9478,7 +9478,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  80046bc:	20000210 	.word	0x20000210
   ldr r2, =_sidata
- 80046c0:	0800dea0 	.word	0x0800dea0
+ 80046c0:	0800dea8 	.word	0x0800dea8
   ldr r2, =_sbss
  80046c4:	20000210 	.word	0x20000210
   ldr r4, =_ebss
@@ -14968,7 +14968,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  80065f6:	bf00      	nop
  80065f8:	40023c00 	.word	0x40023c00
  80065fc:	40023800 	.word	0x40023800
- 8006600:	0800da4c 	.word	0x0800da4c
+ 8006600:	0800da50 	.word	0x0800da50
  8006604:	2000003c 	.word	0x2000003c
  8006608:	20000040 	.word	0x20000040
 
@@ -15225,7 +15225,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  80067cc:	4618      	mov	r0, r3
  80067ce:	bd80      	pop	{r7, pc}
  80067d0:	40023800 	.word	0x40023800
- 80067d4:	0800da5c 	.word	0x0800da5c
+ 80067d4:	0800da60 	.word	0x0800da60
 
 080067d8 <HAL_TIM_Base_Init>:
   *         Ex: call @ref HAL_TIM_Base_DeInit() before HAL_TIM_Base_Init()
@@ -17757,11 +17757,11 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8007730:	e7ee      	b.n	8007710 <_printf_float+0x2a4>
  8007732:	bf00      	nop
  8007734:	7fefffff 	.word	0x7fefffff
- 8007738:	0800da64 	.word	0x0800da64
- 800773c:	0800da68 	.word	0x0800da68
- 8007740:	0800da6c 	.word	0x0800da6c
- 8007744:	0800da70 	.word	0x0800da70
- 8007748:	0800da74 	.word	0x0800da74
+ 8007738:	0800da68 	.word	0x0800da68
+ 800773c:	0800da6c 	.word	0x0800da6c
+ 8007740:	0800da70 	.word	0x0800da70
+ 8007744:	0800da74 	.word	0x0800da74
+ 8007748:	0800da78 	.word	0x0800da78
  800774c:	6da3      	ldr	r3, [r4, #88]	@ 0x58
  800774e:	f8dd a028 	ldr.w	sl, [sp, #40]	@ 0x28
  8007752:	4553      	cmp	r3, sl
@@ -18241,8 +18241,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8007bcc:	f104 0619 	add.w	r6, r4, #25
  8007bd0:	e7f5      	b.n	8007bbe <_printf_i+0x222>
  8007bd2:	bf00      	nop
- 8007bd4:	0800da76 	.word	0x0800da76
- 8007bd8:	0800da87 	.word	0x0800da87
+ 8007bd4:	0800da7a 	.word	0x0800da7a
+ 8007bd8:	0800da8b 	.word	0x0800da8b
 
 08007bdc <_scanf_float>:
  8007bdc:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
@@ -18638,8 +18638,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8007ff4:	f04f 0900 	mov.w	r9, #0
  8007ff8:	e629      	b.n	8007c4e <_scanf_float+0x72>
  8007ffa:	bf00      	nop
- 8007ffc:	0800da98 	.word	0x0800da98
- 8008000:	0800de2d 	.word	0x0800de2d
+ 8007ffc:	0800da9c 	.word	0x0800da9c
+ 8008000:	0800de35 	.word	0x0800de35
 
 08008004 <std>:
  8008004:	2300      	movs	r3, #0
@@ -19093,10 +19093,10 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  80083f2:	4798      	blx	r3
  80083f4:	3601      	adds	r6, #1
  80083f6:	e7f2      	b.n	80083de <__libc_init_array+0x1e>
- 80083f8:	0800de98 	.word	0x0800de98
- 80083fc:	0800de98 	.word	0x0800de98
- 8008400:	0800de98 	.word	0x0800de98
- 8008404:	0800de9c 	.word	0x0800de9c
+ 80083f8:	0800dea0 	.word	0x0800dea0
+ 80083fc:	0800dea0 	.word	0x0800dea0
+ 8008400:	0800dea0 	.word	0x0800dea0
+ 8008404:	0800dea4 	.word	0x0800dea4
 
 08008408 <__retarget_lock_init_recursive>:
  8008408:	4770      	bx	lr
@@ -19511,15 +19511,15 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8008804:	3fc68a28 	.word	0x3fc68a28
  8008808:	509f79fb 	.word	0x509f79fb
  800880c:	3fd34413 	.word	0x3fd34413
- 8008810:	0800daaa 	.word	0x0800daaa
- 8008814:	0800dac1 	.word	0x0800dac1
+ 8008810:	0800daae 	.word	0x0800daae
+ 8008814:	0800dac5 	.word	0x0800dac5
  8008818:	7ff00000 	.word	0x7ff00000
- 800881c:	0800da75 	.word	0x0800da75
+ 800881c:	0800da79 	.word	0x0800da79
  8008820:	3ff80000 	.word	0x3ff80000
- 8008824:	0800dbb8 	.word	0x0800dbb8
- 8008828:	0800db19 	.word	0x0800db19
- 800882c:	0800daa6 	.word	0x0800daa6
- 8008830:	0800da74 	.word	0x0800da74
+ 8008824:	0800dbc0 	.word	0x0800dbc0
+ 8008828:	0800db1d 	.word	0x0800db1d
+ 800882c:	0800daaa 	.word	0x0800daaa
+ 8008830:	0800da78 	.word	0x0800da78
  8008834:	f8db 301c 	ldr.w	r3, [fp, #28]
  8008838:	6018      	str	r0, [r3, #0]
  800883a:	9b07      	ldr	r3, [sp, #28]
@@ -19771,8 +19771,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8008afa:	f7f7 fd85 	bl	8000608 <__aeabi_dmul>
  8008afe:	e9cd 0102 	strd	r0, r1, [sp, #8]
  8008b02:	e7c4      	b.n	8008a8e <_dtoa_r+0x546>
- 8008b04:	0800dbb8 	.word	0x0800dbb8
- 8008b08:	0800db90 	.word	0x0800db90
+ 8008b04:	0800dbc0 	.word	0x0800dbc0
+ 8008b08:	0800db98 	.word	0x0800db98
  8008b0c:	3ff00000 	.word	0x3ff00000
  8008b10:	40240000 	.word	0x40240000
  8008b14:	401c0000 	.word	0x401c0000
@@ -20374,8 +20374,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  80090c0:	f000 f968 	bl	8009394 <__multadd>
  80090c4:	4681      	mov	r9, r0
  80090c6:	e7ea      	b.n	800909e <_dtoa_r+0xb56>
- 80090c8:	0800db19 	.word	0x0800db19
- 80090cc:	0800da9d 	.word	0x0800da9d
+ 80090c8:	0800db1d 	.word	0x0800db1d
+ 80090cc:	0800daa1 	.word	0x0800daa1
 
 080090d0 <_free_r>:
  80090d0:	b538      	push	{r3, r4, r5, lr}
@@ -20659,8 +20659,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8009340:	e9c0 3303 	strd	r3, r3, [r0, #12]
  8009344:	e7f7      	b.n	8009336 <_Balloc+0x66>
  8009346:	bf00      	nop
- 8009348:	0800daaa 	.word	0x0800daaa
- 800934c:	0800db2a 	.word	0x0800db2a
+ 8009348:	0800daae 	.word	0x0800daae
+ 800934c:	0800db2e 	.word	0x0800db2e
 
 08009350 <_Bfree>:
  8009350:	b570      	push	{r4, r5, r6, lr}
@@ -20688,8 +20688,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8009384:	6021      	str	r1, [r4, #0]
  8009386:	f843 4022 	str.w	r4, [r3, r2, lsl #2]
  800938a:	bd70      	pop	{r4, r5, r6, pc}
- 800938c:	0800daaa 	.word	0x0800daaa
- 8009390:	0800db2a 	.word	0x0800db2a
+ 800938c:	0800daae 	.word	0x0800daae
+ 8009390:	0800db2e 	.word	0x0800db2e
 
 08009394 <__multadd>:
  8009394:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
@@ -20743,8 +20743,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8009410:	6125      	str	r5, [r4, #16]
  8009412:	4620      	mov	r0, r4
  8009414:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
- 8009418:	0800db19 	.word	0x0800db19
- 800941c:	0800db2a 	.word	0x0800db2a
+ 8009418:	0800db1d 	.word	0x0800db1d
+ 800941c:	0800db2e 	.word	0x0800db2e
 
 08009420 <__s2b>:
  8009420:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -20805,8 +20805,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  80094a4:	f7ff ff76 	bl	8009394 <__multadd>
  80094a8:	e7ee      	b.n	8009488 <__s2b+0x68>
  80094aa:	bf00      	nop
- 80094ac:	0800db19 	.word	0x0800db19
- 80094b0:	0800db2a 	.word	0x0800db2a
+ 80094ac:	0800db1d 	.word	0x0800db1d
+ 80094b0:	0800db2e 	.word	0x0800db2e
 
 080094b4 <__hi0bits>:
  80094b4:	f5b0 3f80 	cmp.w	r0, #65536	@ 0x10000
@@ -20896,8 +20896,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800956a:	6103      	str	r3, [r0, #16]
  800956c:	bd10      	pop	{r4, pc}
  800956e:	bf00      	nop
- 8009570:	0800db19 	.word	0x0800db19
- 8009574:	0800db2a 	.word	0x0800db2a
+ 8009570:	0800db1d 	.word	0x0800db1d
+ 8009574:	0800db2e 	.word	0x0800db2e
 
 08009578 <__multiply>:
  8009578:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
@@ -21016,8 +21016,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  80096be:	e799      	b.n	80095f4 <__multiply+0x7c>
  80096c0:	3e01      	subs	r6, #1
  80096c2:	e79b      	b.n	80095fc <__multiply+0x84>
- 80096c4:	0800db19 	.word	0x0800db19
- 80096c8:	0800db2a 	.word	0x0800db2a
+ 80096c4:	0800db1d 	.word	0x0800db1d
+ 80096c8:	0800db2e 	.word	0x0800db2e
 
 080096cc <__pow5mult>:
  80096cc:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -21085,9 +21085,9 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800976c:	4630      	mov	r0, r6
  800976e:	e8bd 83f8 	ldmia.w	sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
  8009772:	bf00      	nop
- 8009774:	0800db84 	.word	0x0800db84
- 8009778:	0800daaa 	.word	0x0800daaa
- 800977c:	0800db2a 	.word	0x0800db2a
+ 8009774:	0800db88 	.word	0x0800db88
+ 8009778:	0800daae 	.word	0x0800daae
+ 800977c:	0800db2e 	.word	0x0800db2e
 
 08009780 <__lshift>:
  8009780:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -21166,8 +21166,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800984a:	d8f9      	bhi.n	8009840 <__lshift+0xc0>
  800984c:	e7ea      	b.n	8009824 <__lshift+0xa4>
  800984e:	bf00      	nop
- 8009850:	0800db19 	.word	0x0800db19
- 8009854:	0800db2a 	.word	0x0800db2a
+ 8009850:	0800db1d 	.word	0x0800db1d
+ 8009854:	0800db2e 	.word	0x0800db2e
 
 08009858 <__mcmp>:
  8009858:	690a      	ldr	r2, [r1, #16]
@@ -21303,8 +21303,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  80099aa:	3f01      	subs	r7, #1
  80099ac:	e7e7      	b.n	800997e <__mdiff+0xee>
  80099ae:	bf00      	nop
- 80099b0:	0800db19 	.word	0x0800db19
- 80099b4:	0800db2a 	.word	0x0800db2a
+ 80099b0:	0800db1d 	.word	0x0800db1d
+ 80099b4:	0800db2e 	.word	0x0800db2e
 
 080099b8 <__ulp>:
  80099b8:	b082      	sub	sp, #8
@@ -21454,8 +21454,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8009b36:	f7ff fcbd 	bl	80094b4 <__hi0bits>
  8009b3a:	ebc0 1042 	rsb	r0, r0, r2, lsl #5
  8009b3e:	e7e5      	b.n	8009b0c <__d2b+0x74>
- 8009b40:	0800db19 	.word	0x0800db19
- 8009b44:	0800db2a 	.word	0x0800db2a
+ 8009b40:	0800db1d 	.word	0x0800db1d
+ 8009b44:	0800db2e 	.word	0x0800db2e
 
 08009b48 <__ratio>:
  8009b48:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
@@ -21857,8 +21857,8 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  8009ef4:	e785      	b.n	8009e02 <_strtod_l+0x192>
  8009ef6:	f04f 0c01 	mov.w	ip, #1
  8009efa:	e7f8      	b.n	8009eee <_strtod_l+0x27e>
- 8009efc:	0800dc98 	.word	0x0800dc98
- 8009f00:	0800dc80 	.word	0x0800dc80
+ 8009efc:	0800dca0 	.word	0x0800dca0
+ 8009f00:	0800dc88 	.word	0x0800dc88
  8009f04:	7ff00000 	.word	0x7ff00000
  8009f08:	9a19      	ldr	r2, [sp, #100]	@ 0x64
  8009f0a:	1c51      	adds	r1, r2, #1
@@ -22151,13 +22151,13 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800a1e6:	6013      	str	r3, [r2, #0]
  800a1e8:	e768      	b.n	800a0bc <_strtod_l+0x44c>
  800a1ea:	bf00      	nop
- 800a1ec:	0800da71 	.word	0x0800da71
- 800a1f0:	0800dc84 	.word	0x0800dc84
- 800a1f4:	0800da69 	.word	0x0800da69
- 800a1f8:	0800daa0 	.word	0x0800daa0
- 800a1fc:	0800de2d 	.word	0x0800de2d
- 800a200:	0800dbb8 	.word	0x0800dbb8
- 800a204:	0800db90 	.word	0x0800db90
+ 800a1ec:	0800da75 	.word	0x0800da75
+ 800a1f0:	0800dc8c 	.word	0x0800dc8c
+ 800a1f4:	0800da6d 	.word	0x0800da6d
+ 800a1f8:	0800daa4 	.word	0x0800daa4
+ 800a1fc:	0800de35 	.word	0x0800de35
+ 800a200:	0800dbc0 	.word	0x0800dbc0
+ 800a204:	0800db98 	.word	0x0800db98
  800a208:	7ff00000 	.word	0x7ff00000
  800a20c:	7ca00000 	.word	0x7ca00000
  800a210:	7fefffff 	.word	0x7fefffff
@@ -22443,7 +22443,7 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800a4be:	6013      	str	r3, [r2, #0]
  800a4c0:	e600      	b.n	800a0c4 <_strtod_l+0x454>
  800a4c2:	bf00      	nop
- 800a4c4:	0800dcb0 	.word	0x0800dcb0
+ 800a4c4:	0800dcb8 	.word	0x0800dcb8
  800a4c8:	fffffc02 	.word	0xfffffc02
  800a4cc:	39500000 	.word	0x39500000
  800a4d0:	7ff00000 	.word	0x7ff00000
@@ -22869,7 +22869,7 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800a92c:	d1f6      	bne.n	800a91c <_strtol_l.constprop.0+0xd8>
  800a92e:	f8c8 1000 	str.w	r1, [r8]
  800a932:	e794      	b.n	800a85e <_strtol_l.constprop.0+0x1a>
- 800a934:	0800dcd9 	.word	0x0800dcd9
+ 800a934:	0800dce1 	.word	0x0800dce1
 
 0800a938 <_strtol_r>:
  800a938:	f7ff bf84 	b.w	800a844 <_strtol_l.constprop.0>
@@ -23149,11 +23149,11 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800abd0:	4638      	mov	r0, r7
  800abd2:	f7fc fee3 	bl	800799c <_printf_i>
  800abd6:	e7ed      	b.n	800abb4 <_svfiprintf_r+0x1c0>
- 800abd8:	0800ddd9 	.word	0x0800ddd9
- 800abdc:	0800dde3 	.word	0x0800dde3
+ 800abd8:	0800dde1 	.word	0x0800dde1
+ 800abdc:	0800ddeb 	.word	0x0800ddeb
  800abe0:	0800746d 	.word	0x0800746d
  800abe4:	0800a93d 	.word	0x0800a93d
- 800abe8:	0800dddf 	.word	0x0800dddf
+ 800abe8:	0800dde7 	.word	0x0800dde7
 
 0800abec <__sfputc_r>:
  800abec:	6893      	ldr	r3, [r2, #8]
@@ -23419,11 +23419,11 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800ae54:	4630      	mov	r0, r6
  800ae56:	f7fc fda1 	bl	800799c <_printf_i>
  800ae5a:	e7e4      	b.n	800ae26 <_vfiprintf_r+0x1e6>
- 800ae5c:	0800ddd9 	.word	0x0800ddd9
- 800ae60:	0800dde3 	.word	0x0800dde3
+ 800ae5c:	0800dde1 	.word	0x0800dde1
+ 800ae60:	0800ddeb 	.word	0x0800ddeb
  800ae64:	0800746d 	.word	0x0800746d
  800ae68:	0800ac1b 	.word	0x0800ac1b
- 800ae6c:	0800dddf 	.word	0x0800dddf
+ 800ae6c:	0800dde7 	.word	0x0800dde7
 
 0800ae70 <__sflush_r>:
  800ae70:	f9b1 200c 	ldrsh.w	r2, [r1, #12]
@@ -23777,9 +23777,9 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800b170:	e7f4      	b.n	800b15c <__assert_func+0x14>
  800b172:	bf00      	nop
  800b174:	20000054 	.word	0x20000054
- 800b178:	0800de2d 	.word	0x0800de2d
- 800b17c:	0800ddff 	.word	0x0800ddff
- 800b180:	0800ddf2 	.word	0x0800ddf2
+ 800b178:	0800de35 	.word	0x0800de35
+ 800b17c:	0800de07 	.word	0x0800de07
+ 800b180:	0800ddfa 	.word	0x0800ddfa
 
 0800b184 <_calloc_r>:
  800b184:	b570      	push	{r4, r5, r6, lr}
@@ -24167,9 +24167,9 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800b526:	2b00      	cmp	r3, #0
  800b528:	d1dd      	bne.n	800b4e6 <__gethex+0x26a>
  800b52a:	e7ee      	b.n	800b50a <__gethex+0x28e>
- 800b52c:	0800dc80 	.word	0x0800dc80
- 800b530:	0800db19 	.word	0x0800db19
- 800b534:	0800de2e 	.word	0x0800de2e
+ 800b52c:	0800dc88 	.word	0x0800dc88
+ 800b530:	0800db1d 	.word	0x0800db1d
+ 800b534:	0800de36 	.word	0x0800de36
  800b538:	1e6f      	subs	r7, r5, #1
  800b53a:	f1b9 0f00 	cmp.w	r9, #0
  800b53e:	d130      	bne.n	800b5a2 <__gethex+0x326>
@@ -24304,7 +24304,7 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
  800b692:	42b0      	cmp	r0, r6
  800b694:	dbe7      	blt.n	800b666 <__gethex+0x3ea>
  800b696:	e7f0      	b.n	800b67a <__gethex+0x3fe>
- 800b698:	0800db19 	.word	0x0800db19
+ 800b698:	0800db1d 	.word	0x0800db1d
 
 0800b69c <L_shift>:
  800b69c:	f1c2 0208 	rsb	r2, r2, #8
