@@ -34,40 +34,40 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := Turbotimer OLED
+BUILD_ARTIFACT_NAME := STM32Turbotimer
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-Turbotimer\ OLED.elf \
+STM32Turbotimer.elf \
 
 MAP_FILES += \
-Turbotimer\ OLED.map \
+STM32Turbotimer.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-Turbotimer\ OLED.list \
+STM32Turbotimer.list \
 
 OBJCOPY_HEX += \
-Turbotimer\ OLED.hex \
+STM32Turbotimer.hex \
 
 OBJCOPY_BIN += \
-Turbotimer\ OLED.bin \
+STM32Turbotimer.bin \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: Turbotimer\ OLED.elf secondary-outputs
+main-build: STM32Turbotimer.elf secondary-outputs
 
 # Tool invocations
-Turbotimer\ OLED.elf Turbotimer\ OLED.map: $(OBJS) $(USER_OBJS) C:\Users\d.jureczko\STM32CubeIDE\workspace_1.16.0\Turbotimer\ OLED\STM32F401CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Turbotimer OLED.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\d.jureczko\STM32CubeIDE\workspace_1.16.0\Turbotimer OLED\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Turbotimer OLED.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+STM32Turbotimer.elf STM32Turbotimer.map: $(OBJS) $(USER_OBJS) C:\STM32CubeIDE\workspace_1.16.1\STM32Turbotimer\STM32F401CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32Turbotimer.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\STM32CubeIDE\workspace_1.16.1\STM32Turbotimer\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32Turbotimer.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -76,24 +76,24 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Turbotimer\ OLED.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Turbotimer OLED.list"
+STM32Turbotimer.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "STM32Turbotimer.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Turbotimer\ OLED.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "Turbotimer OLED.hex"
+STM32Turbotimer.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "STM32Turbotimer.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Turbotimer\ OLED.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "Turbotimer OLED.bin"
+STM32Turbotimer.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "STM32Turbotimer.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) Turbotimer\ OLED.bin Turbotimer\ OLED.elf Turbotimer\ OLED.hex Turbotimer\ OLED.list Turbotimer\ OLED.map Turbotimer\\ OLED.elf default.size.stdout
+	-$(RM) STM32Turbotimer.bin STM32Turbotimer.elf STM32Turbotimer.hex STM32Turbotimer.list STM32Turbotimer.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)

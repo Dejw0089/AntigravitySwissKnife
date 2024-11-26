@@ -24,6 +24,7 @@
 #include "ssd1306.h"
 #include "ssd1306_tests.h"
 #include <stdbool.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
