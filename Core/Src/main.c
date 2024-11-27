@@ -25,6 +25,7 @@
 #include "ssd1306_tests.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,9 +53,10 @@ TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN PV */
+//const char *screen = "LOGO";
 int display = 0;
 int i = 0, pastI = 0;
-int screen = 8;
+//int screen = LOGO;
 float volt = 0;
 float voltSet = 13.4;
 float pomiar1 = 0;
@@ -125,6 +127,22 @@ int blinkLock = 0;
 int carLocked = 0;
 int carUnLocked = 0;
 int ignitionOn = 0;
+
+// Definicja typów enum dla nazw dysków
+typedef enum {
+	LOGO = 0,
+	GLOWNY,
+	MENU_1,
+	MENU_2,
+	TURBOTIMER_SET,
+	GTH_SET,
+	CHARGE_ON,
+	TURBOTIMER_START,
+	GTH_START
+} SelectScreen;
+// Mapowanie tekstu na typ enum
+SelectScreen screen = LOGO;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -236,10 +254,10 @@ int speed = 0;
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 
 	counter = __HAL_TIM_GET_COUNTER(&htim3);
-	if (screen == 1 || screen == 6) {
+	if (screen == MENU_1 || screen == MENU_2) {
 		if (chargeSet == 0 && contrastSet == 0 && voltageSetLock == 0
 				&& sleepSet == 0) {
-			if (screen == 1) {
+			if (screen == MENU_1) {
 				if (counter - prevCounter == -4) {
 					count--;
 					prevCounter = counter;
@@ -255,7 +273,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 					}
 				}
 			}
-			if (screen == 6) {
+			if (screen == MENU_2) {
 				if (counter - prevCounter == -4) {
 					count--;
 					prevCounter = counter;
@@ -355,7 +373,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 			counter = 0;
 		}
 	}
-	if (screen == 2 || screen == 3) {
+	if (screen == TURBOTIMER_SET || screen == GTH_SET) {
 		if (counter - prevCounter == -4) {
 			count--;
 			prevCounter = counter;
@@ -376,7 +394,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 int main(void) {
 
 	/* USER CODE BEGIN 1 */
-
+	// Funkcja do mapowania tekstu na typ enum
 	/* USER CODE END 1 */
 
 	/* MCU Configuration--------------------------------------------------------*/
@@ -406,6 +424,33 @@ int main(void) {
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
 	ssd1306_Init();
+
+//	SelectScreen getScreen(const char *wybrany_ekran) {
+//		if (strcmp(wybrany_ekran, "LOGO") == 0) {
+//			return LOGO;
+//		} else if (strcmp(wybrany_ekran, "GLOWNY") == 0) {
+//			return GLOWNY;
+//		} else if (strcmp(wybrany_ekran, "MENU_1") == 0) {
+//			return MENU_1;
+//		} else if (strcmp(wybrany_ekran, "MENU_1") == 0) {
+//			return MENU_2;
+//		} else if (strcmp(wybrany_ekran, "TURBOTIMER_SET") == 0) {
+//			return TURBOTIMER_SET;
+//		} else if (strcmp(wybrany_ekran, "GTH_SET") == 0) {
+//			return GTH_SET;
+//		} else if (strcmp(wybrany_ekran, "CHARGE_ON") == 0) {
+//			return CHARGE_ON;
+//		} else if (strcmp(wybrany_ekran, "TURBOTIMER_START") == 0) {
+//			return TURBOTIMER_START;
+//		} else if (strcmp(wybrany_ekran, "GTH_START") == 0) {
+//			return GTH_START;
+//		} else {
+//			return LOGO;
+//		}
+//	}
+	// Symulacja wyboru dysku
+//	const char *wybrany_ekran;
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -414,10 +459,11 @@ int main(void) {
 		HAL_IWDG_Refresh(&hiwdg);
 		ssd1306_SetContrast(contrast);
 		void dots() {  //// +13
-			if (screen == 0 || screen == 2 || screen == 3 || screen == 4
-					|| screen == 7) {
+			if (screen == GLOWNY || screen == TURBOTIMER_SET
+					|| screen == GTH_SET || screen == CHARGE_ON
+					|| screen == GTH_START) {
 				ssd1306_DrawRectangle(0, 12, 120, 44, White);
-				if (screen == 2 || screen == 3) {
+				if (screen == TURBOTIMER_SET || screen == GTH_SET) {
 					if (minAdj == 2) {
 						ssd1306_DrawRectangle(32, 15, 57, 33, Black);
 						ssd1306_DrawRectangle(69, 15, 92, 32, Black);
@@ -435,7 +481,7 @@ int main(void) {
 					}
 				}
 			}
-			if (screen == 1 && chargeSet == 0) {
+			if (screen == MENU_1 && chargeSet == 0) {
 				if (count == 0) {
 					ssd1306_DrawRectangle(0, 10, 120, 22, Black);
 					ssd1306_DrawRectangle(0, 23, 120, 35, Black);
@@ -480,10 +526,10 @@ int main(void) {
 					ssd1306_DrawRectangle(65, 52, 120, 62, White);
 				}
 			}
-			if (screen == 1 && chargeSet == 1) {
+			if (screen == MENU_1 && chargeSet == 1) {
 				ssd1306_DrawRectangle(55, 36, 90, 48, White);
 			}
-			if (screen == 6) {
+			if (screen == MENU_2) {
 				if (contrastSet == 0 && voltageSetLock == 0 && sleepSet == 0) {
 					if (count == 0) {
 						ssd1306_DrawRectangle(0, 10, 120, 22, Black);
@@ -579,10 +625,10 @@ int main(void) {
 		printf("%s", timeSetSekGth);
 		snprintf(timeSetMinGth, 7, "%d", minSetGth);
 		printf("%s", timeSetMinGth);
-		/////////////////////////////////Ekran//////////////////////////////
+		/////////////////////////////////screen//////////////////////////////
 		dots();
 		switch (screen) {
-		case 0:   //////////////// ekran główny
+		case GLOWNY:   //////////////// screen główny
 			//			ssd1306_DrawRectangle(0, 12, 120, 35, White);
 			ssd1306_SetCursor(30, 0);
 			ssd1306_WriteString("TURBOTIMER", Font_7x10, White);
@@ -619,7 +665,7 @@ int main(void) {
 			ssd1306_SetCursor(105, 50);
 			ssd1306_WriteString("V", Font_7x10, White);
 			break;
-		case 1:
+		case MENU_1:
 			ssd1306_SetCursor(50, 0);
 			ssd1306_WriteString("MENU", Font_6x8, White);
 			ssd1306_SetCursor(3, 13);
@@ -642,7 +688,7 @@ int main(void) {
 			}
 
 			break;
-		case 2:
+		case TURBOTIMER_SET:
 			ssd1306_SetCursor(55, 54);
 			ssd1306_WriteString("OK", Font_6x8, White);
 			ssd1306_SetCursor(15, 0);
@@ -706,7 +752,7 @@ int main(void) {
 				}
 			}
 			break;
-		case 3:
+		case GTH_SET:
 			ssd1306_SetCursor(55, 54);
 			ssd1306_WriteString("OK", Font_6x8, White);
 			ssd1306_SetCursor(15, 0);
@@ -770,7 +816,7 @@ int main(void) {
 				}
 			}
 			break;
-		case 4:
+		case CHARGE_ON:
 			ssd1306_SetCursor(13, 19);
 			ssd1306_WriteString("CHARGE ON", Font_11x18, White);
 			ssd1306_SetCursor(10, 50);
@@ -780,11 +826,11 @@ int main(void) {
 			ssd1306_SetCursor(105, 50);
 			ssd1306_WriteString("V", Font_7x10, White);
 			break;
-		case 5:
+		case TURBOTIMER_START:
 			ssd1306_SetCursor(18, 19);
 			ssd1306_WriteString("STARTING", Font_11x18, White);
 			break;
-		case 6:
+		case MENU_2:
 			ssd1306_SetCursor(15, 0);
 			ssd1306_WriteString("CONFIGURATION", Font_6x8, White);
 			ssd1306_SetCursor(3, 13);
@@ -804,7 +850,7 @@ int main(void) {
 			ssd1306_SetCursor(87, 54);
 			ssd1306_WriteString("EXIT", Font_6x8, White);
 			break;
-		case 7:
+		case GTH_START:
 			ssd1306_SetCursor(30, 0);
 			ssd1306_WriteString("GO TO HOME", Font_7x10, White);
 			ssd1306_SetCursor(35, 33);
@@ -840,7 +886,7 @@ int main(void) {
 			ssd1306_SetCursor(105, 50);
 			ssd1306_WriteString("V", Font_7x10, White);
 			break;
-		case 8:
+		case LOGO:
 			ssd1306_startLogo();
 			break;
 
@@ -894,11 +940,11 @@ int main(void) {
 		}
 		if (pressed == 1 && lock == 0 && display == 1) {
 			ssd1306_Fill(Black);
-			if (screen == 2) {
+			if (screen == TURBOTIMER_SET) {
 				if (minAdj == 2) {
 					sek = sekSet;
 					min = minSet;
-					screen = 1;
+					screen = MENU_1;
 					count = 0;
 				}
 				if (minAdj == 1) {
@@ -908,11 +954,11 @@ int main(void) {
 					minAdj = 1;
 				}
 			}
-			if (screen == 3) {
+			if (screen == GTH_SET) {
 				if (minAdj == 2) {
 					sekGth = sekSetGth;
 					minGth = minSetGth;
-					screen = 1;
+					screen = MENU_1;
 				}
 				if (minAdj == 1) {
 					minAdj = 2;
@@ -921,15 +967,15 @@ int main(void) {
 					minAdj = 1;
 				}
 			}
-			if (screen == 0 && turbotimerOn == 0) {
+			if (screen == GLOWNY && turbotimerOn == 0) {
 				//				count = 0;
-				screen = 1;
+				screen = MENU_1;
 			}
-			if (screen == 4) {
+			if (screen == CHARGE_ON) {
 				//				count = 0;
-				screen = 1;
+				screen = MENU_1;
 			}
-			if (screen == 1) {
+			if (screen == MENU_1) {
 				if (count == 0) {
 					minAdj = 0;
 				}
@@ -941,7 +987,7 @@ int main(void) {
 					prevCounter = 32767;
 					TIM3->CNT = 32767;
 					counter = 32767;
-					screen = 2;
+					screen = TURBOTIMER_SET;
 				}
 				if (count == 2) {
 					sekSetGth = sekGth;
@@ -951,7 +997,7 @@ int main(void) {
 					prevCounter = 32767;
 					TIM3->CNT = 32767;
 					counter = 32767;
-					screen = 3;
+					screen = GTH_SET;
 				}
 				if (count == 3 && chargeSet == 0 && setLock == 0) {
 					count = charge;
@@ -973,18 +1019,18 @@ int main(void) {
 					prevCounter = 0;
 					prevCount = 0;
 					TIM3->CNT = 0;
-					screen = 6;
+					screen = MENU_2;
 				}
 				if (count == 5) {
 					if (charge == 1) {
-						screen = 4;
+						screen = CHARGE_ON;
 					}
 					if (charge == 0) {
-						screen = 0;
+						screen = GLOWNY;
 					}
 				}
 			}
-			if (screen == 6) {
+			if (screen == MENU_2) {
 				if (count == 1 && contrastSet == 0 && setLock == 0) {
 					count = contrast;
 					prevCount = contrast;
@@ -1041,10 +1087,11 @@ int main(void) {
 					setLock = 1;
 				}
 				if (count == 4) {
-					screen = 1;
+					screen = MENU_1;
 				}
 			}
-			if (screen == 1 || screen == 0 || screen == 4 || screen == 8) {
+			if (screen == MENU_1 || screen == GLOWNY || screen == CHARGE_ON
+					|| screen == LOGO) {
 				if (count != 3 && chargeSet != 1) {
 					count = 0;
 					counter = 0;
@@ -1053,11 +1100,11 @@ int main(void) {
 					TIM3->CNT = 0;
 				}
 			}
-			if (volt < voltSet && gthLock == 0 && screen == 7) {
+			if (volt < voltSet && gthLock == 0 && screen == GTH_START) {
 				minGth = 0;
 				sekGth = 1;
 			}
-			if (volt > voltSet && turbotimerOn == 1 && screen == 0) {
+			if (volt > voltSet && turbotimerOn == 1 && screen == GLOWNY) {
 				min = 7;
 				sek = 0;
 			}
@@ -1066,12 +1113,12 @@ int main(void) {
 			pressed = 0;
 		}
 		if (pressed == 1 && lock == 0 && display == 0) {
-			screen = 8;
+			screen = LOGO;
 			ssd1306_SetDisplayOn(1);
-			if (screen == 8) {
+			if (screen == LOGO) {
 				if (milis - prevmilis2 >= 50) {
 					ssd1306_Fill(Black);
-					screen = 0;
+					screen = GLOWNY;
 					prevmilis2 = milis;
 				}
 			}
@@ -1084,92 +1131,94 @@ int main(void) {
 		///////////////////////////////////////////////////////////////////////////////////
 		////////////////////////Działanie softu/////////////////////////////////////////
 		display = ssd1306_GetDisplayOn();
-		if (screen == 8) {
+		if (screen == LOGO) {
 			prevmilisBckl = milis;
 			if (milis - prevmilis2 >= 50) {
 				ssd1306_Fill(Black);
-				screen = 0;
+				screen = GLOWNY;
 				prevmilis2 = milis;
 			}
 			//			HAL_Delay(5000);
 			//			ssd1306_Fill(Black);
-			//			screen = 0;
+			//			screen = "GLOWNY";
 		}
-		if (screen != 8) {
+		if (screen != LOGO) {
 			prevmilis2 = milis;
 		}
 
 //		if (volt >= voltSet && ignitionState == 0) {
 		if (ignitionOn == 1) {
-			if (voltageSetLock == 0 && charge == 0) {
-				if (display == 0) {
-					ssd1306_Fill(Black);
-					screen = 8;
-					ssd1306_SetDisplayOn(1);
-					prevmilisBckl = milis;
-				}
-				if (screen == 7) {
-					screen = 0;
-				}
-			}
-			if (screen == 0) {
-				ssd1306_Fill(Black);
-				if (reczny == 0 && turbotimerOn == 0) {
-					//				ssd1306_SetDisplayOn(1);
-					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
-					//				turbotimerLock = 0;
-					screen = 5;
-				}
-				if (reczny == 1 && turbotimerLock == 1) {
-					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
-					turbotimerLock = 0;
-				}
-				if (reczny == 1 && turbotimerOn == 0) {
-					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
-					turbotimerLock = 0;
-				}
-				if (reczny == 0 && turbotimerLock == 0) {
-					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(GPIOB, GthRelay_Pin, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOB, GthLamp1_Pin, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_SET);
-					HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_SET);
-				}
-			}
-			if (screen == 5) {
-				if (reczny == 0) {
-					ssd1306_SetDisplayOn(1);
-					if (trigger < 10) {
-						//					screen = 5;
-						trigger++;
+			if (charge == 0) {
+				if (voltageSetLock == 0) {
+					if (display == 0) {
+						ssd1306_Fill(Black);
+						screen = LOGO;
+						ssd1306_SetDisplayOn(1);
+						prevmilisBckl = milis;
 					}
-					if (trigger == 10) {
-						screen = 0;
-						turbotimerOn = 1;
+					if (screen == GTH_START) {
+						screen = GLOWNY;
+					}
+				}
+				if (screen == GLOWNY) {
+					ssd1306_Fill(Black);
+					if (reczny == 0 && turbotimerOn == 0) {
+						//				ssd1306_SetDisplayOn(1);
+						HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
+						//				turbotimerLock = 0;
+						screen = TURBOTIMER_START;
+					}
+					if (reczny == 1 && turbotimerLock == 1) {
+						HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
+						turbotimerLock = 0;
+					}
+					if (reczny == 1 && turbotimerOn == 0) {
+						HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
+						turbotimerLock = 0;
+					}
+					if (reczny == 0 && turbotimerLock == 0) {
+						HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_RESET);
+						HAL_GPIO_WritePin(GPIOB, GthRelay_Pin, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOB, GthLamp1_Pin, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_SET);
+						HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_SET);
+					}
+				}
+				if (screen == TURBOTIMER_START) {
+					if (reczny == 0) {
+						ssd1306_SetDisplayOn(1);
+						if (trigger < 10) {
+							//					screen = "TURBOTIMER_START";
+							trigger++;
+						}
+						if (trigger == 10) {
+							screen = GLOWNY;
+							turbotimerOn = 1;
+						}
+					}
+					if (reczny == 1) {
+						HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
+						screen = GLOWNY;
 					}
 				}
 				if (reczny == 1) {
-					HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_SET);
-					screen = 0;
-				}
-			}
-			if (reczny == 1) {
 //			HAL_GPIO_WritePin(GPIOB, ttRelay_Pin, GPIO_PIN_RESET);
-				turbotimerOn = 0;
-				trigger = 0;
-				sek = sekSet;
-				min = minSet;
-			}
-			if (charge == 0 && turbotimerOn == 0) {
-				HAL_GPIO_WritePin(GPIOB, GthRelay_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOB, GthLamp1_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_RESET);
-				gthLock = 0;
-				sekGth = sekSetGth;
-				minGth = minSetGth;
-				carLocked = 0;
-				carUnLocked = 0;
+					turbotimerOn = 0;
+					trigger = 0;
+					sek = sekSet;
+					min = minSet;
+				}
+				if (turbotimerOn == 0) {
+					HAL_GPIO_WritePin(GPIOB, GthRelay_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOB, GthLamp1_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOB, GthLamp2_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOB, GthLicznik_Pin, GPIO_PIN_RESET);
+					gthLock = 0;
+					sekGth = sekSetGth;
+					minGth = minSetGth;
+					carLocked = 0;
+					carUnLocked = 0;
+				}
 			}
 			if (charge == 1) {
 				gthLock = 1;
@@ -1190,10 +1239,10 @@ int main(void) {
 				if (turbotimerOn == 1) {
 					ssd1306_SetDisplayOn(1);
 				}
-				if (gthLock == 0 && screen != 8) {
-					screen = 7;
+				if (gthLock == 0 && screen != LOGO) {
+					screen = GTH_START;
 				}
-				if (screen == 0 && gthLock == 1) {
+				if (screen == GLOWNY && gthLock == 1) {
 					if (milis - prevmilisBckl >= (sleep * 10)) {
 						if (charge == 0 && turbotimerOn == 0) {
 							ssd1306_SetDisplayOn(0);
@@ -1201,7 +1250,7 @@ int main(void) {
 						prevmilisBckl = milis;
 					}
 				}
-				if (screen == 7 && gthLock == 1) {
+				if (screen == GTH_START && gthLock == 1) {
 					if (milis - prevmilisBckl >= (sleep * 10)) {
 						if (charge == 0 && turbotimerOn == 0) {
 							ssd1306_SetDisplayOn(0);
@@ -1215,7 +1264,7 @@ int main(void) {
 				if (display == 0) {
 					ssd1306_Fill(Black);
 					prevmilisBckl = milis;
-					screen = 8;
+					screen = LOGO;
 				}
 
 			}
@@ -1229,7 +1278,7 @@ int main(void) {
 				carUnLocked = 0;
 			}
 			if (blinkCount == 2) {
-				screen = 7;
+				screen = GTH_START;
 				ssd1306_SetDisplayOn(1);
 				gthLock = 0;
 				sekGth = sekSetGth;
@@ -1508,8 +1557,8 @@ static void MX_GPIO_Init(void) {
 
 	/*Configure GPIO pin Output Level */
 	HAL_GPIO_WritePin(GPIOB,
-			GthLamp2_Pin | ttRelay_Pin | GthRelay_Pin | GthLicznik_Pin
-					| GthLamp1_Pin, GPIO_PIN_SET);
+	GthLamp2_Pin | ttRelay_Pin | GthRelay_Pin | GthLicznik_Pin | GthLamp1_Pin,
+			GPIO_PIN_SET);
 
 	/*Configure GPIO pins : B1_Pin OK_Pin ignition_Pin */
 	GPIO_InitStruct.Pin = B1_Pin | OK_Pin | ignition_Pin;

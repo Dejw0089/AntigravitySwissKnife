@@ -77,6 +77,9 @@
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.1735131796" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1037109988.1062287969" name="STM32Turbotimer.elf" rcbsApplicability="disable" resourcePath="Debug/STM32Turbotimer.elf" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.632470305.1066499372">
+						<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.632470305.1066499372" name="MCU Size" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.632470305"/>
+					</fileInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
